@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
-use App\Http\Controllers\Admin\TypeController as TypeController;
+use App\Http\Controllers\Admin\TypeController as AdminTypeController;
+use App\Http\Controllers\Admin\TechnologyController as AdminTechnologyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,7 @@ Route::middleware('auth')
         Route::delete('/projects/deleted/{project}', [AdminProjectController::class, 'deletedDestroy'])->name('projects.deleted.destroy');
         Route::resource('/projects', AdminProjectController::class);
         
-        Route::resource('/types', TypeController::class);
+        Route::resource('/types', AdminTypeController::class);
+
+        Route::resource('/technologies', AdminTechnologyController::class);
 });

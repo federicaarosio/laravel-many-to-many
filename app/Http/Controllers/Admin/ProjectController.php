@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\PostDec;
@@ -26,7 +27,8 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $types = Type::all();
-        return view('admin.projects.create', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -34,17 +36,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        // dd($request->all()['technologies']);
         $request->validate(
-            [
-                'title' => ['required'],
-                'type_id'=>['exists:types,id'],
-                'description' => ['required'],
-                'cover_image' => ['required', 'url:http,https'],
-                'author' => ['required'],
-            ]);
+                [
+                    'title' => ['required'],
+                    'type_id'=>['exists:types,id'],
+                    'description' => ['required'],
+                    'cover_image' => ['required', 'url:http,https'],
+                    'author' => ['required'],
+                    'technologies' => ['exists:technologies,id'],
+                ]);
             $data = $request->all();
 
             $project = Project::create($data);
+            $project->technologies()->sync($data['technologies']);
 
             return redirect()->route('admin.projects.show', $project);
     }
@@ -63,7 +69,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -78,6 +85,7 @@ class ProjectController extends Controller
                 'description' => ['required'],
                 'cover_image' => ['required', 'url:http,https'],
                 'author' => ['required'],
+                'technologies' => ['exists:technologies,id'],
             ]);
 
         $data = $request->all();

@@ -26,6 +26,21 @@
                 <p>
                     <strong>Type: </strong>{{ $project-> type -> name}}
                 </p>
+                <p>
+                    <strong>Technologies: </strong>
+                    <ul>
+                        @forelse ($project->technologies as $technology)
+                            <li class="d-inline me-3">
+                                    {{ $technology->name }}
+                            </li>
+        
+                        @empty
+                            <li class="d-inline me-3">
+                                This project has no technologies yet...
+                            </li>
+                        @endforelse
+                    </ul>
+                </p>
             </div>
 
         </div>

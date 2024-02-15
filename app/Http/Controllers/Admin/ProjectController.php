@@ -123,6 +123,7 @@ class ProjectController extends Controller
 
     public function deletedDestroy(string $id){
         $project = Project::withTrashed()->where('id', $id)->first();
+        $project->technologies()->detach(); // rimuovi i collegamenti
         $project->forceDelete();
 
         return redirect()->route('admin.projects.deleted.index');

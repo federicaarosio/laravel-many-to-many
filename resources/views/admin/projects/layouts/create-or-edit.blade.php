@@ -37,7 +37,7 @@
                                 <input class="form-check-input" type="checkbox" name="technologies[]" id="technologies-{{ $technology->id }}" value="{{ $technology->id }}"
                                 {{-- se la technology su cui sto ciclando è presente nelle technologies che ho inviato e ora voglio rivedere come errore, selezionala, se invece non ho avuto alcun errore, cercala all'interno della lista delle technologies presenti nel mio project --}}
                                 {{ in_array( $technology->id, old('technologies', $project->technologies->pluck('id')->toArray())) ? 'checked' : '' }}>
-                                <label for="technologies" class="me-4">{{ $technology->name }}</label>
+                                <label for="technologies-{{ $technology->id }}" class="me-4">{{ $technology->name }}</label>
                             @endforeach
                         </div>
                     </div>

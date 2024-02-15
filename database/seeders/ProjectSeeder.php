@@ -13,7 +13,7 @@ class ProjectSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(Faker $faker): void
     {
         $projects = [
             'project' => [
@@ -48,16 +48,27 @@ class ProjectSeeder extends Seeder
 
         //prendo tutti gli id di tutti i tipi e li salvo in $typesIds
         $typesIds = Type::all()->pluck('id');
-    
-        foreach ($projects as $singleProject) {
+
+        for ($i=0; $i < 50; $i++) { 
             $newProject = new Project();
-            $newProject->title = $singleProject['title'];
-            $newProject->type_id = $typesIds[rand(0, count($typesIds) - 1 )];
-            $newProject->author = $singleProject['author'];
-            $newProject->description = $singleProject['description'];
-            $newProject->cover_image = $singleProject['cover_image'];
-            $newProject->creation_date= $singleProject['creation_date'];
+            $newProject->title = $faker->unique()->realTextBetween(9, 25);
+            $newProject->type_id = $typesIds[ $faker->numberBetween(0, count($typesIds) - 1 )];
+            $newProject->author = $faker->name() . $faker->lastname();
+            $newProject->description = $faker->paragraph(3, true);
+            $newProject->cover_image = 'https://picsum.photos/id/'. $faker->numberBetween(1,300).'/640/480';
+            $newProject->creation_date= $faker->date();
             $newProject->save();
         };
+    
+        // foreach ($projects as $singleProject) {
+        //     $newProject = new Project();
+        //     $newProject->title = $singleProject['title'];
+        //     $newProject->type_id = $typesIds[rand(0, count($typesIds) - 1 )];
+        //     $newProject->author = $singleProject['author'];
+        //     $newProject->description = $singleProject['description'];
+        //     $newProject->cover_image = $singleProject['cover_image'];
+        //     $newProject->creation_date= $singleProject['creation_date'];
+        //     $newProject->save();
+        // };
     }
 }

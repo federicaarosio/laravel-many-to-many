@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-            $table->string('author', 20);
+            $table->string('author', 40);
             $table->text('cover_image');
             $table->text('description');
             $table->string('languages');

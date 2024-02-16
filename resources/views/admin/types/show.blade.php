@@ -14,6 +14,19 @@
                 <p>
                     This a description of the "{{ $type->name }}" type.
                 </p>
+                <p>
+                    This is a list of the projects categorized in this type:
+                    <ul>
+                        @forelse ($type->projects as $project)
+                        <li>
+                            {{ $project-> title }}
+                        </li>
+                        @empty
+                            This technology has no projects listed yet.
+                        @endforelse
+
+                    </ul>
+                </p>
             </div>
 
         </div>

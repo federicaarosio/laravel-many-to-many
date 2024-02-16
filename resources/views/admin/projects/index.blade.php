@@ -18,6 +18,7 @@
                     <th scope="col">Author</th>
                     <th scope="col">Created on</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -29,6 +30,7 @@
                         <td>{{ $project->author }}</td>
                         <td>{{ $project->creation_date }}</td>
                         <td>{{ substr($project->description, 0, 45 )}}...</td>
+                        <td>{{ $project->type->name }}</td>
                         <td>
                             <a href="{{ route('admin.projects.show', $project) }}">
                                 <button class="btn btn-sm btn-primary">

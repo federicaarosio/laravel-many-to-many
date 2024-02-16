@@ -87,6 +87,9 @@
                                     <a class="nav-link" href="{{ route('admin.types.create') }}">
                                         Add a new Type
                                     </a>
+                                    <a class="nav-link" href="{{ route('admin.types.deleted.index') }}">
+                                        Deleted Types
+                                    </a>
                                 </div>
                             </li>
 

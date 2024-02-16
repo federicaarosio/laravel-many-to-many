@@ -76,4 +76,23 @@ class TypeController extends Controller
         $type->delete();
         return redirect()->route('admin.types.index');
     }
+
+    public function deletedIndex(){
+        $types = Type::onlyTrashed()->get();
+        return view('admin.types.deleted-index', compact('types'));
+    }
+
+    public function deletedRestore(string $id){
+        $type = Type::withTrashed()->where('id', $id)->first();
+        $type->restore();
+
+        return redirect()->route('admin.types.index', $type);
+    }
+
+    public function deletedDestroy(string $id){
+        $type = Type::withTrashed()->where('id', $id)->first();
+        $type->forceDelete();
+
+        return redirect()->route('admin.types.deleted.index');
+    }
 }

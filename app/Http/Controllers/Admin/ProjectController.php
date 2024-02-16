@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+use App\Rules\StartsUppercase;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\PostDec;
 
@@ -42,7 +43,7 @@ class ProjectController extends Controller
                 [
                     'title' => ['required'],
                     'type_id'=>['exists:types,id'],
-                    'description' => ['required'],
+                    'description' => ['required', new StartsUppercase],
                     'cover_image' => ['required', 'url:http,https'],
                     'creation_date' => ['required'],
                     'author' => ['required'],

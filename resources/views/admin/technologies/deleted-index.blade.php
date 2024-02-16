@@ -1,11 +1,13 @@
 @extends('layouts.admin')
 
+@section('title', 'Admin Deleted technologies')
+
 @section('main-content')
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1>
-                These are all the technologies you have, {{ Auth::user()->name }}
+                all technologies that have been deleted
             </h1>
 
             <table class="table table-hover">
@@ -22,20 +24,23 @@
                         <td>{{ $technology->id }}</td>
                         <td>{{ $technology->name }}</td>
                         <td>
-                            <a href="{{ route('admin.technologies.show', $technology) }}">
+                            <a href="{{ route('admin.technologies.deleted.restore', $technology) }}">
                                 <button class="btn btn-sm btn-primary">
                                     View
                                 </button>
                             </a>
-                            <a href="{{ route('admin.technologies.edit', $technology) }}">
-                                <button class="btn btn-sm btn-success">
-                                    Edit
+                            <form class="d-inline-block" action="{{ route('admin.technologies.deleted.restore', $technology) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+
+                                <button class="btn btn-sm btn-warning" type="submit">
+                                    Restore
                                 </button>
-                            </a>
+                            </form>
 
 
                                 <!-- Button trigger modal -->
-                                <button technology="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $technology->id }}">
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $technology->id }}">
                                     Delete
                                 </button>
                                 
@@ -45,19 +50,19 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                         <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Delete technology</h1>
-                                        <button technology="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             Are you really sure you want to delete "<strong>{{ $technology->name }}</strong>" technology?<br>
-                                            After deleting, you'll find it in the "Deleted technologies" menu where you can restore it.
+                                            This action is irreversible.
                                         </div>
                                         <div class="modal-footer">
-                                        <button technology="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <form class="d-inline-block" action="{{ route('admin.technologies.destroy', $technology) }}" method="POST">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <form class="d-inline-block" action="{{ route('admin.technologies.deleted.destroy', $technology) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
             
-                                            <button class="btn btn-danger" technology="submit">
+                                            <button class="btn btn-danger" type="submit">
                                                 Delete
                                             </button>
                                         </form>

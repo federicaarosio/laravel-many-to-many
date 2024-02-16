@@ -73,4 +73,23 @@ class TechnologyController extends Controller
         $technology->delete();
         return redirect()->route('admin.technologies.index');
     }
+
+    public function deletedIndex(){
+        $technologies = Technology::onlyTrashed()->get();
+        return view('admin.technologies.deleted-index', compact('technologies'));
+    }
+
+    public function deletedRestore(string $id){
+        $technology = Technology::withTrashed()->where('id', $id)->first();
+        $technology->restore();
+
+        return redirect()->route('admin.technologies.index', $technology);
+    }
+
+    public function deletedDestroy(string $id){
+        $technology = Technology::withTrashed()->where('id', $id)->first();
+        $technology->forceDelete();
+
+        return redirect()->route('admin.technologies.deleted.index');
+    }
 }

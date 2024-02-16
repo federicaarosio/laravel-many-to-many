@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('creation_date', 'DESC')->get();
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -44,6 +44,7 @@ class ProjectController extends Controller
                     'type_id'=>['exists:types,id'],
                     'description' => ['required'],
                     'cover_image' => ['required', 'url:http,https'],
+                    'creation_date' => ['required'],
                     'author' => ['required'],
                     'technologies' => ['exists:technologies,id'],
                 ]);
@@ -84,6 +85,7 @@ class ProjectController extends Controller
                 'type_id'=>['exists:types,id'],
                 'description' => ['required'],
                 'cover_image' => ['required', 'url:http,https'],
+                'creation_date' => ['required'],
                 'author' => ['required'],
                 'technologies' => ['exists:technologies,id'],
             ]);

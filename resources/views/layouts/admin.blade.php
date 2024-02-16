@@ -82,7 +82,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="nav-link" href="{{ route('admin.types.index') }}">
-                                        All types 
+                                        All Types 
                                     </a>
                                     <a class="nav-link" href="{{ route('admin.types.create') }}">
                                         Add a new Type
@@ -105,6 +105,9 @@
                                     </a>
                                     <a class="nav-link" href="{{ route('admin.technologies.create') }}">
                                         Add a new Technology
+                                    </a>
+                                    <a class="nav-link" href="{{ route('admin.technologies.deleted.index') }}">
+                                        Deleted Technologies
                                     </a>
                                 </div>
                             </li>

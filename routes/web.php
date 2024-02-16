@@ -32,7 +32,7 @@ Route::middleware('auth')
     ->prefix('admin')
     ->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-        
+
         // Projects
         Route::get('/projects/deleted', [AdminProjectController::class, 'deletedIndex'])->name('projects.deleted.index');
         Route::get('/projects/deleted/{poject}', [AdminProjectController::class, 'deletedShow'])->name('projects.deleted.show');
@@ -47,6 +47,9 @@ Route::middleware('auth')
         Route::resource('/types', AdminTypeController::class);
 
         // Technologies
+        Route::get('/technologies/deleted', [AdminTechnologyController::class, 'deletedIndex'])->name('technologies.deleted.index');
+        Route::patch('/technologies/deleted/{type}', [AdminTechnologyController::class, 'deletedRestore'])->name('technologies.deleted.restore');
+        Route::delete('/technologies/deleted/{type}', [AdminTechnologyController::class, 'deletedDestroy'])->name('technologies.deleted.destroy');
         Route::resource('/technologies', AdminTechnologyController::class);
 
 });

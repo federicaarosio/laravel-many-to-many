@@ -16,4 +16,8 @@ class Social extends Model
         'home',
         'logo',
     ];
+
+    public function projects(){
+        return $this->belongsToMany(Project::class);
+    }
 }

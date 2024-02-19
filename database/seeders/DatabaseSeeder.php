@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             TechnologySeeder::class,
             ProjectTechnologySeeder::class,
+            SocialSeeder::class,
         ]);
     }
 }

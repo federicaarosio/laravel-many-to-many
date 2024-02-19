@@ -30,14 +30,27 @@
                     <strong>Technologies: </strong>
                     <ul>
                         @forelse ($project->technologies as $technology)
-                            <li class="d-inline me-3">
+                            <li class="me-3">
                                     {{ $technology->name }}
                             </li>
         
                         @empty
-                            <li class="d-inline me-3">
-                                This project has no technologies yet...
+                            This project has no technologies yet...
+                        @endforelse
+                    </ul>
+                </p>
+
+                <p>
+                    <strong>
+                        Socials:
+                    </strong>
+                    <ul>
+                        @forelse ($project->socials as $social)
+                            <li class="me-3">
+                                {{ $social->name }}
                             </li>
+                        @empty
+                            There are no socials here, yet.
                         @endforelse
                     </ul>
                 </p>

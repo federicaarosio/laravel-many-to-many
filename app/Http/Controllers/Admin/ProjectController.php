@@ -51,6 +51,11 @@ class ProjectController extends Controller
                 ]);
             $data = $request->all();
 
+            //questo mi permette di non inserire necesseriamente delle tecnologie in creazione
+            if (!isset($data['technologies'])){
+                $data['technologies'] = [];
+            }
+
             $project = Project::create($data);
             $project->technologies()->sync($data['technologies']);
 
@@ -92,6 +97,10 @@ class ProjectController extends Controller
             ]);
 
         $data = $request->all();
+
+        if (!isset($data['technologies'])){
+            $data['technologies'] = [];
+        }
 
         $project->update($data);
 
